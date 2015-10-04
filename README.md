@@ -1,5 +1,5 @@
 # maxprime
-get the max prime (3~3,825,123,056,546,413,051)
+get the max prime (3~3,317,044,064,679,887,385,961,981)
 
 usage
 
