@@ -93,7 +93,8 @@
             (mr_test 13 n)
             (mr_test 17 n)
             (mr_test 19 n)
-            (mr_test 23 n))))))
+            (mr_test 23 n)
+            (mr_test 41 n))))))
             
 ;向上取素数
 (define plus_test
@@ -140,6 +141,11 @@
 (define (runtime)
   (let((st(current-inexact-milliseconds)))
     (max_prime 3725123056546413051)
+    (- (current-inexact-milliseconds) st)))
+
+(define (runtime2)
+  (let((st(current-inexact-milliseconds)))
+    (max_prime 147573952589676412928)
     (- (current-inexact-milliseconds) st)))
 
 
