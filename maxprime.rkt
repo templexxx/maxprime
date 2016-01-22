@@ -22,12 +22,6 @@
       (let (( p (inexact->exact (round p_guess1))))
         (- n p)))))
 
-;(define first_guess1
-  ;(lambda(n)
-   ; (let ((no_guess1 (number_guess n)))
-    ;  (let (( p (inexact->exact (round (/ n no_guess1)))))
-      ;  (- n p)))))
-
 ;蒙哥马利算法
 (define sexy_mod
   (lambda(a n mod_n)
@@ -140,14 +134,8 @@
 ;测速，单位毫秒
 (define (runtime)
   (let((st(current-inexact-milliseconds)))
-    (max_prime 3725123056546413051)
+    (max_prime 3317044064679887385961981)
     (- (current-inexact-milliseconds) st)))
-
-(define (runtime2)
-  (let((st(current-inexact-milliseconds)))
-    (max_prime 147573952589676412928)
-    (- (current-inexact-milliseconds) st)))
-
 
 
 
