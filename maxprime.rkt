@@ -134,8 +134,22 @@
 ;测速，单位毫秒
 (define (runtime)
   (let((st(current-inexact-milliseconds)))
-    (max_prime 3317044064679887385961981)
+    (max_prime 3317044064679887385961980)
     (- (current-inexact-milliseconds) st)))
 
+(define (runtime2)
+  (let((st(current-inexact-milliseconds)))
+    (minus_test 3317044064679887385961925)
+    (- (current-inexact-milliseconds) st)))
+
+(define (runtime3)
+  (let((st(current-inexact-milliseconds)))
+    (plus_test 3317044064679887385961980 3317044064679887385961925)
+    (- (current-inexact-milliseconds) st)))
+
+(define (runtime4)
+  (let((st(current-inexact-milliseconds)))
+    (xmr_test 3317044064679887385961925)
+    (- (current-inexact-milliseconds) st)))
 
 
