@@ -26,20 +26,34 @@ get(Num) ->
 xmr_test(Num) ->
 	  if
 		    Num < 2047 ->  mr_test(2, Num);
-		    Num < 1373653 ->  (mr_test(2, Num)) and (mr_test(3, Num));
-		    Num < 9080191 -> (mr_test(31, Num)) and (mr_test(73, Num));
-		    Num < 25326001 -> (mr_test(2, Num)) and (mr_test(3, Num)) and (mr_test(5, Num));
-		    Num < 4759123141 -> (mr_test(2, Num)) and (mr_test(7, Num)) and (mr_test(61, Num));
-		    Num < 2152302898747 -> (mr_test(2, Num)) and (mr_test(3, Num)) and (mr_test(5, Num)) and (mr_test(7, Num)) and (mr_test(11, Num));
-		    Num < 3474749660383 -> (mr_test(2, Num)) and (mr_test(3, Num)) and (mr_test(5, Num)) and (mr_test(7, Num)) and (mr_test(11, Num)) and (mr_test(13, Num));
-		    Num < 341550071728321 -> (mr_test(2, Num)) and (mr_test(3, Num)) and (mr_test(5, Num)) and (mr_test(7, Num)) and (mr_test(11, Num)) and (mr_test(13, Num)) and (mr_test(17, Num));
-		    Num < 3825123056546413051 -> (mr_test(2, Num)) and (mr_test(3, Num)) and (mr_test(5, Num)) and (mr_test(7, Num)) and (mr_test(11, Num)) and (mr_test(13, Num)) and (mr_test(17, Num))
-																and (mr_test(19, Num)) and (mr_test(23, Num));
-		    Num < 318665857834031151167461 -> (mr_test(2, Num)) and (mr_test(3, Num)) and (mr_test(5, Num)) and (mr_test(7, Num)) and (mr_test(11, Num)) and (mr_test(13, Num)) and (mr_test(17, Num))
-			  and (mr_test(19, Num)) and (mr_test(23, Num)) and (mr_test(29, Num)) and (mr_test(31, Num)) and (mr_test(37, Num));
+		    Num < 1373653 ->  (mr_test(2, Num)) andalso (mr_test(3, Num));
+		    Num < 9080191 -> (mr_test(31, Num)) andalso (mr_test(73, Num));
+		    Num < 25326001 -> (mr_test(2, Num)) andalso (mr_test(3, Num)) andalso (mr_test(5, Num));
+		    Num < 4759123141 -> (mr_test(2, Num)) andalso (mr_test(7, Num)) andalso (mr_test(61, Num));
+		    Num < 2152302898747 -> (mr_test(2, Num)) andalso (mr_test(3, Num)) andalso (mr_test(5, Num))
+																andalso (mr_test(7, Num)) andalso (mr_test(11, Num));
+		    Num < 3474749660383 -> (mr_test(2, Num)) andalso (mr_test(3, Num)) andalso (mr_test(5, Num))
+																andalso (mr_test(7, Num)) andalso (mr_test(11, Num))
+																andalso (mr_test(13, Num));
+		    Num < 341550071728321 -> (mr_test(2, Num)) andalso (mr_test(3, Num)) andalso (mr_test(5, Num))
+																	andalso (mr_test(7, Num)) andalso (mr_test(11, Num))
+																	andalso (mr_test(13, Num)) andalso (mr_test(17, Num));
+		    Num < 3825123056546413051 -> (mr_test(2, Num)) andalso (mr_test(3, Num)) andalso (mr_test(5, Num))
+																			andalso (mr_test(7, Num)) andalso (mr_test(11, Num))
+																			andalso (mr_test(13, Num)) andalso (mr_test(17, Num))
+																			andalso (mr_test(19, Num)) andalso (mr_test(23, Num));
+		    Num < 318665857834031151167461 -> (mr_test(2, Num)) andalso (mr_test(3, Num))
+																					andalso (mr_test(5, Num)) andalso (mr_test(7, Num))
+																					andalso (mr_test(11, Num)) andalso (mr_test(13, Num))
+																					andalso (mr_test(17, Num)) andalso (mr_test(19, Num))
+																					andalso (mr_test(23, Num)) andalso (mr_test(29, Num))
+																					andalso (mr_test(31, Num)) andalso (mr_test(37, Num));
 		%%Num < 3317044064679887385961981
-		    true -> (mr_test(2, Num)) and (mr_test(3, Num)) and (mr_test(5, Num)) and (mr_test(7, Num)) and (mr_test(11, Num)) and (mr_test(13, Num)) and (mr_test(17, Num))
-			  and (mr_test(19, Num)) and (mr_test(23, Num)) and (mr_test(29, Num)) and (mr_test(31, Num)) and (mr_test(37, Num)) and (mr_test(41, Num))
+		    true -> (mr_test(2, Num)) andalso (mr_test(3, Num)) andalso (mr_test(5, Num))
+								andalso (mr_test(7, Num)) andalso (mr_test(11, Num)) andalso (mr_test(13, Num))
+								andalso (mr_test(17, Num)) andalso (mr_test(19, Num)) andalso (mr_test(23, Num))
+								andalso (mr_test(29, Num)) andalso (mr_test(31, Num)) andalso (mr_test(37, Num))
+								andalso (mr_test(41, Num))
 	  end.
 
 
@@ -63,7 +77,7 @@ mon_main(NumMin1, ModMon, BaseNum2, Num) ->
         NumMin1 == 0  -> ModMon rem Num;
    		  true ->
 			      Num_left = NumMin1 div 2,
-			      Num0 = NumMin1 band 2,
+			      Num0 = NumMin1 band 1,
 		            if
                     Num0 == 0 ->
 			                  mon_main(Num_left, ModMon, (BaseNum2 * BaseNum2) rem Num, Num);
@@ -142,7 +156,7 @@ up_test(FirstGuess, Num) ->
 					   	  true -> []
             end
 		end.
-		
+
 
 get_prime_list(FirstGuess, ThreadNum) ->
 		upmap(fun (Off)->

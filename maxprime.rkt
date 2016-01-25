@@ -88,6 +88,9 @@
             (mr_test 17 n)
             (mr_test 19 n)
             (mr_test 23 n)
+            (mr_test 29 n)
+            (mr_test 31 n)
+            (mr_test 37 n)
             (mr_test 41 n))))))
             
 ;向上取素数
@@ -150,6 +153,11 @@
 (define (runtime4)
   (let((st(current-inexact-milliseconds)))
     (xmr_test 3317044064679887385961925)
+    (- (current-inexact-milliseconds) st)))
+
+(define (runtime5)
+  (let((st(current-inexact-milliseconds)))
+    (mr_test 41 3317044064679887385961925)
     (- (current-inexact-milliseconds) st)))
 
 
