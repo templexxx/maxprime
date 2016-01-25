@@ -1,7 +1,8 @@
 -module(maxprime).
 
 
--export([get/1]).
+%-export([get/1]).
+-compile(export_all).
 
 
 get(Num) ->	
@@ -62,7 +63,7 @@ mon_main(NumMin1, ModMon, BaseNum2, Num) ->
         NumMin1 == 0  -> ModMon rem Num;
    		  true ->
 			      Num_left = NumMin1 div 2,
-			      Num0 = NumMin1 rem 2,
+			      Num0 = NumMin1 band 2,
 		            if
                     Num0 == 0 ->
 			                  mon_main(Num_left, ModMon, (BaseNum2 * BaseNum2) rem Num, Num);

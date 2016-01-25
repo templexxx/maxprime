@@ -11,3 +11,4 @@ rel/example_project
 .rebar
 
 # Created by .ignore support plugin (hsz.mobi)
+.idea
