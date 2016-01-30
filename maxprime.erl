@@ -23,6 +23,25 @@ get(Num) ->
   end.
 
 
+
+%% 效率挺低的
+sum(Num) ->
+  sum_main(lists:seq(3, Num), 0).
+
+
+sum_main([], SUM) ->
+  SUM;
+sum_main([H|T], SUM) ->
+  Answer = xmr_test(H),
+  if
+    Answer == true ->
+      SUM1 = SUM + H,
+      sum_main(T, SUM1);
+    true ->
+      sum_main(T, SUM)
+  end.
+
+
 %%%%%↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑%%%%%
 %%%%%↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ YOU NEED CARE ABOUT ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑%%%%%
 %%%%%                                                                                                    %%%%%
