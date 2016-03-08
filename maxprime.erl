@@ -50,41 +50,51 @@ sum_main([H | T], SUM) ->
 
 
 xmr_test(Num) ->
-
-			if
-				Num < 2047 -> mr_test2(2, Num);
-				Num < 1373653 -> (mr_test2(2, Num)) andalso (mr_test2(3, Num));
-				Num < 9080191 -> (mr_test2(31, Num)) andalso (mr_test2(73, Num));
-				Num < 25326001 -> (mr_test2(2, Num)) andalso (mr_test2(3, Num)) andalso (mr_test2(5, Num));
-				Num < 4759123141 -> (mr_test2(2, Num)) andalso (mr_test2(7, Num)) andalso (mr_test2(61, Num));
-				Num < 2152302898747 -> (mr_test2(2, Num)) andalso (mr_test2(3, Num)) andalso (mr_test2(5, Num))
-					andalso (mr_test2(7, Num)) andalso (mr_test2(11, Num));
-				Num < 3474749660383 -> (mr_test2(2, Num)) andalso (mr_test2(3, Num)) andalso (mr_test2(5, Num))
-					andalso (mr_test2(7, Num)) andalso (mr_test2(11, Num))
-					andalso (mr_test2(13, Num));
-				Num < 341550071728321 -> (mr_test2(2, Num)) andalso (mr_test2(3, Num)) andalso (mr_test2(5, Num))
-					andalso (mr_test2(7, Num)) andalso (mr_test2(11, Num))
-					andalso (mr_test2(13, Num)) andalso (mr_test2(17, Num));
-				Num < 3825123056546413051 -> (mr_test2(2, Num)) andalso (mr_test2(3, Num)) andalso (mr_test2(5, Num))
-					andalso (mr_test2(7, Num)) andalso (mr_test2(11, Num))
-					andalso (mr_test2(13, Num)) andalso (mr_test2(17, Num))
-					andalso (mr_test2(19, Num)) andalso (mr_test2(23, Num));
-				Num < 318665857834031151167461 -> (mr_test2(2, Num)) andalso (mr_test2(3, Num))
-					andalso (mr_test2(5, Num)) andalso (mr_test2(7, Num))
-					andalso (mr_test2(11, Num)) andalso (mr_test2(13, Num))
-					andalso (mr_test2(17, Num)) andalso (mr_test2(19, Num))
-					andalso (mr_test2(23, Num)) andalso (mr_test2(29, Num))
-					andalso (mr_test2(31, Num)) andalso (mr_test2(37, Num));
-				true -> (mr_test2(2, Num)) andalso (mr_test2(3, Num)) andalso (mr_test2(5, Num))
-					andalso (mr_test2(7, Num)) andalso (mr_test2(11, Num)) andalso (mr_test2(13, Num))
-					andalso (mr_test2(17, Num)) andalso (mr_test2(19, Num)) andalso (mr_test2(23, Num))
-					andalso (mr_test2(29, Num)) andalso (mr_test2(31, Num)) andalso (mr_test2(37, Num))
-					andalso (mr_test2(41, Num))
+	if
+		Num < 2047 ->
+			mr_test(2, Num);
+		Num < 1373653 ->
+			(mr_test(2, Num)) andalso (mr_test(3, Num));
+		Num < 9080191 ->
+			(mr_test(31, Num)) andalso (mr_test(73, Num));
+		Num < 25326001 ->
+			(mr_test(2, Num)) andalso (mr_test(3, Num)) andalso (mr_test(5, Num));
+		Num < 4759123141 ->
+			(mr_test(2, Num)) andalso (mr_test(7, Num)) andalso (mr_test(61, Num));
+		Num < 2152302898747 ->
+			(mr_test(2, Num)) andalso (mr_test(3, Num)) andalso (mr_test(5, Num))
+			andalso (mr_test(7, Num)) andalso (mr_test(11, Num));
+		Num < 3474749660383 ->
+			(mr_test(2, Num)) andalso (mr_test(3, Num)) andalso (mr_test(5, Num))
+			andalso (mr_test(7, Num)) andalso (mr_test(11, Num))
+			andalso (mr_test(13, Num));
+		Num < 341550071728321 ->
+			(mr_test(2, Num)) andalso (mr_test(3, Num)) andalso (mr_test(5, Num))
+			andalso (mr_test(7, Num)) andalso (mr_test(11, Num))
+			andalso (mr_test(13, Num)) andalso (mr_test(17, Num));
+		Num < 3825123056546413051 ->
+			(mr_test(2, Num)) andalso (mr_test(3, Num)) andalso (mr_test(5, Num))
+			andalso (mr_test(7, Num)) andalso (mr_test(11, Num))
+			andalso (mr_test(13, Num)) andalso (mr_test(17, Num))
+			andalso (mr_test(19, Num)) andalso (mr_test(23, Num));
+		Num < 318665857834031151167461 ->
+			(mr_test(2, Num)) andalso (mr_test(3, Num))
+			andalso (mr_test(5, Num)) andalso (mr_test(7, Num))
+			andalso (mr_test(11, Num)) andalso (mr_test(13, Num))
+			andalso (mr_test(17, Num)) andalso (mr_test(19, Num))
+			andalso (mr_test(23, Num)) andalso (mr_test(29, Num))
+			andalso (mr_test(31, Num)) andalso (mr_test(37, Num));
+		true ->
+			(mr_test(2, Num)) andalso (mr_test(3, Num)) andalso (mr_test(5, Num))
+			andalso (mr_test(7, Num)) andalso (mr_test(11, Num)) andalso (mr_test(13, Num))
+			andalso (mr_test(17, Num)) andalso (mr_test(19, Num)) andalso (mr_test(23, Num))
+			andalso (mr_test(29, Num)) andalso (mr_test(31, Num)) andalso (mr_test(37, Num))
+			andalso (mr_test(41, Num))
 	end.
 
 
 
-mr_test2(BaseNum, Num) ->
+mr_test(BaseNum, Num) ->
 	PassOrNot = even(Num),
 	if
 		PassOrNot == false ->
@@ -96,6 +106,7 @@ mr_test2(BaseNum, Num) ->
 			end;
 		true -> false
 	end.
+
 
 mon(BaseNum, NumMin1, Num) ->
 	BaseNum2 = BaseNum rem Num,
@@ -127,7 +138,6 @@ mr_test_main(BaseNum, Num, NumMin1) ->
 
 even(Num) ->
 	Num band 1 == 0.
-
 
 
 mr_test_even(BaseNum, Num, NumMin1) ->
@@ -163,6 +173,15 @@ p_guess(Num) ->
 		+ (720 / (math:pow(LnNum, 6)))
 		+ (5040 / (math:pow(LnNum, 7)))
 		+ (40320 / (math:pow(LnNum, 8)))).
+
+
+down_test(FirstGuess) ->
+	FirstGuessMin1 = FirstGuess - 1,
+	Answer = xmr_test(FirstGuessMin1),
+	if
+		Answer == true -> FirstGuessMin1;
+		true -> down_test(FirstGuessMin1)
+	end.
 
 
 up_test(FirstGuess, Num) ->
@@ -218,13 +237,6 @@ upmap(F, L) ->
 		|| _ <- [spawn(fun() -> Parent ! {Ref, F(X)} end) || X <- L]].
 
 
-down_test(FirstGuess) ->
-	FirstGuessMin1 = FirstGuess - 1,
-	Answer = xmr_test(FirstGuessMin1),
-	if
-		Answer == true -> FirstGuessMin1;
-		true -> down_test(FirstGuessMin1)
-	end.
 
 
 
