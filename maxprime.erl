@@ -4,26 +4,28 @@
 %-export([get/1]).
 -compile(export_all).
 
+
+%% get the max prime
 %%Num < 3317044064679887385961981
 get(Num) ->
 	Answer = xmr_test(Num),
 	if
-		Answer == true -> Num;
-		true ->
+		Answer =/= true ->
 			FirstGuess = first_guess(Num),
 			if
-				FirstGuess == Num -> down_test(FirstGuess);
-				true ->
+				FirstGuess =/= Num ->
 					UpTest = up_test(FirstGuess, Num),
 					if
 						UpTest =/= [] -> UpTest;
 						true -> down_test(FirstGuess)
-					end
-			end
+					end;
+				true -> down_test(FirstGuess)
+			end;
+		true -> Num
 	end.
 
 
-%% 效率挺低的
+%% 求1~Num 间所有素数的和
 sum(Num) ->
 	sum_main(lists:seq(3, Num), 0).
 
@@ -63,33 +65,33 @@ xmr_test(Num) ->
 			(mr_test(2, Num)) andalso (mr_test(7, Num)) andalso (mr_test(61, Num));
 		Num < 2152302898747 ->
 			(mr_test(2, Num)) andalso (mr_test(3, Num)) andalso (mr_test(5, Num))
-			andalso (mr_test(7, Num)) andalso (mr_test(11, Num));
+				andalso (mr_test(7, Num)) andalso (mr_test(11, Num));
 		Num < 3474749660383 ->
 			(mr_test(2, Num)) andalso (mr_test(3, Num)) andalso (mr_test(5, Num))
-			andalso (mr_test(7, Num)) andalso (mr_test(11, Num))
-			andalso (mr_test(13, Num));
+				andalso (mr_test(7, Num)) andalso (mr_test(11, Num))
+				andalso (mr_test(13, Num));
 		Num < 341550071728321 ->
 			(mr_test(2, Num)) andalso (mr_test(3, Num)) andalso (mr_test(5, Num))
-			andalso (mr_test(7, Num)) andalso (mr_test(11, Num))
-			andalso (mr_test(13, Num)) andalso (mr_test(17, Num));
+				andalso (mr_test(7, Num)) andalso (mr_test(11, Num))
+				andalso (mr_test(13, Num)) andalso (mr_test(17, Num));
 		Num < 3825123056546413051 ->
 			(mr_test(2, Num)) andalso (mr_test(3, Num)) andalso (mr_test(5, Num))
-			andalso (mr_test(7, Num)) andalso (mr_test(11, Num))
-			andalso (mr_test(13, Num)) andalso (mr_test(17, Num))
-			andalso (mr_test(19, Num)) andalso (mr_test(23, Num));
+				andalso (mr_test(7, Num)) andalso (mr_test(11, Num))
+				andalso (mr_test(13, Num)) andalso (mr_test(17, Num))
+				andalso (mr_test(19, Num)) andalso (mr_test(23, Num));
 		Num < 318665857834031151167461 ->
 			(mr_test(2, Num)) andalso (mr_test(3, Num))
-			andalso (mr_test(5, Num)) andalso (mr_test(7, Num))
-			andalso (mr_test(11, Num)) andalso (mr_test(13, Num))
-			andalso (mr_test(17, Num)) andalso (mr_test(19, Num))
-			andalso (mr_test(23, Num)) andalso (mr_test(29, Num))
-			andalso (mr_test(31, Num)) andalso (mr_test(37, Num));
+				andalso (mr_test(5, Num)) andalso (mr_test(7, Num))
+				andalso (mr_test(11, Num)) andalso (mr_test(13, Num))
+				andalso (mr_test(17, Num)) andalso (mr_test(19, Num))
+				andalso (mr_test(23, Num)) andalso (mr_test(29, Num))
+				andalso (mr_test(31, Num)) andalso (mr_test(37, Num));
 		true ->
 			(mr_test(2, Num)) andalso (mr_test(3, Num)) andalso (mr_test(5, Num))
-			andalso (mr_test(7, Num)) andalso (mr_test(11, Num)) andalso (mr_test(13, Num))
-			andalso (mr_test(17, Num)) andalso (mr_test(19, Num)) andalso (mr_test(23, Num))
-			andalso (mr_test(29, Num)) andalso (mr_test(31, Num)) andalso (mr_test(37, Num))
-			andalso (mr_test(41, Num))
+				andalso (mr_test(7, Num)) andalso (mr_test(11, Num)) andalso (mr_test(13, Num))
+				andalso (mr_test(17, Num)) andalso (mr_test(19, Num)) andalso (mr_test(23, Num))
+				andalso (mr_test(29, Num)) andalso (mr_test(31, Num)) andalso (mr_test(37, Num))
+				andalso (mr_test(41, Num))
 	end.
 
 
@@ -116,15 +118,16 @@ mon(BaseNum, NumMin1, Num) ->
 
 mon_main(NumMin1, ModMon, BaseNum2, Num) ->
 	if
-		NumMin1 == 0 -> ModMon rem Num;
-		true ->
+		NumMin1 =/= 0 ->
 			Num_left = NumMin1 div 2,
 			Num0 = NumMin1 band 1,
 			if
 				Num0 == 0 ->
 					mon_main(Num_left, ModMon, (BaseNum2 * BaseNum2) rem Num, Num);
 				true -> mon_main(Num_left, (ModMon * BaseNum2) rem Num, (BaseNum2 * BaseNum2) rem Num, Num)
-			end
+			end;
+		true ->
+			ModMon rem Num
 	end.
 
 
