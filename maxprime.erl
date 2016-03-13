@@ -47,7 +47,7 @@ sum_main([H | T], SUM) ->
 %%%%%↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ YOU NEED CARE ABOUT ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑%%%%%
 %%%%%                                                                                                    %%%%%
 %%%%%                                                                                                    %%%%%
-%%%%%↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ Internal Fuctions ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓%%%%%
+%%%%%↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ Internal Functions ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓%%%%%
 %%%%%↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓%%%%%
 
 
@@ -110,11 +110,45 @@ mr_test(BaseNum, Num) ->
 	end.
 
 
+
+
+
+mr_test_main(BaseNum, Num, NumMin1) ->
+	Answer = even(NumMin1),
+	if
+		Answer == true -> mr_test_even(BaseNum, Num, NumMin1);
+		true -> mr_test_odd(BaseNum, Num, NumMin1)
+	end.
+
+
+even(Num) ->
+	Num band 1 == 0.
+
+
+mr_test_even(BaseNum, Num, NumMin1) ->
+	NumHalf = NumMin1 div 2,
+	ModMon = mon(BaseNum, NumHalf, Num),
+	if
+		ModMon == Num - 1 -> true;
+		true ->
+			if
+				ModMon =/= 1 -> false;
+				true -> mr_test_main(BaseNum, Num, NumHalf)
+			end
+	end.
+
+
+mr_test_odd(BaseNum, Num, NumMin1) ->
+	ModMon2 = mon(BaseNum, NumMin1, Num),
+	if
+		(ModMon2 == Num - 1) or (ModMon2 == 1) -> true;
+		true -> false
+	end.
+
 mon(BaseNum, NumMin1, Num) ->
 	BaseNum2 = BaseNum rem Num,
 	ModMon = 1,
 	mon_main(NumMin1, ModMon, BaseNum2, Num).
-
 
 mon_main(NumMin1, ModMon, BaseNum2, Num) ->
 	if
@@ -131,34 +165,7 @@ mon_main(NumMin1, ModMon, BaseNum2, Num) ->
 	end.
 
 
-mr_test_main(BaseNum, Num, NumMin1) ->
-	Answer = even(Num),
-	if
-		Answer == true -> mr_test_even(BaseNum, Num, NumMin1);
-		true -> mr_test_odd(BaseNum, Num, NumMin1)
-	end.
 
-
-even(Num) ->
-	Num band 1 == 0.
-
-
-mr_test_even(BaseNum, Num, NumMin1) ->
-	NumHalf = NumMin1 div 2,
-	ModMon = mon(BaseNum, NumHalf, Num),
-	if
-		ModMon == NumMin1 -> true;
-		ModMon =/= 1 -> fasle;
-		true -> mr_test_main(BaseNum, Num, NumHalf)
-	end.
-
-
-mr_test_odd(BaseNum, Num, NumMin1) ->
-	ModMon2 = mon(BaseNum, NumMin1, Num),
-	if
-		(ModMon2 == NumMin1) or (ModMon2 == 1) -> true;
-		true -> false
-	end.
 
 
 first_guess(Num) ->
