@@ -165,9 +165,6 @@ mon_main(NumMin1, ModMon, BaseNum2, Num) ->
 	end.
 
 
-
-
-
 first_guess(Num) ->
 	P_guess = p_guess(Num),
 	Num - round(P_guess).
