@@ -14,21 +14,22 @@ public class Mprime {
                     if (xmrTest(firstGuess) == true) {
                         return firstGuess;
                     } else {
-                        long maxPrime = downTest(firstGuess);
-                        return maxPrime;
+                        maxprime = downTest(firstGuess);
+                        return maxprime;
                     }
                 } else {
                     return upTestAnswer;
                 }
             } else {
-                long maxPrimeDownTest = downTest(inputNumber);
-                return maxPrimeDownTest;
+                maxprime = downTest(inputNumber);
+                return maxprime;
             }
         } else {
             return inputNumber;
         }
     }
 
+    // Prime or Not?
     public boolean xmrTest(long inputNumber) {
         if (inputNumber < 2047) {
             return mrTest(2, inputNumber);
@@ -56,22 +57,22 @@ public class Mprime {
     public boolean mrTestMain(long baseNum, long inputNumber, long minus1) {
         long half = minus1 % 2;
         long halfmod = mon(baseNum, half, inputNumber);
-        boolean passIfTest = false;
+        boolean passOrNot = false;
         for (long i = 0, k = halfmod, j = half; i >= 0; i++) {
             if (evenOrNot(i) == false) {
                 if ((halfmod == (inputNumber - 1)) || halfmod == 1) {
-                    passIfTest = true;
+                    passOrNot = true;
                     break;
                 } else {
-                    passIfTest = false;
+                    passOrNot = false;
                     break;
                 }
             } else {
                 if (k == (inputNumber - 1)) {
-                    passIfTest = true;
+                    passOrNot = true;
                     break;
                 } else if (k != 1) {
-                    passIfTest = false;
+                    passOrNot = false;
                     break;
                 } else {
                     j = j % 2;
@@ -79,7 +80,7 @@ public class Mprime {
                 }
             }
         }
-        return passIfTest;
+        return passOrNot;
     }
 
     public boolean evenOrNot(long num) {
@@ -87,17 +88,16 @@ public class Mprime {
     }
 
     public long mon(long baseNum, long inputNumberMinus1, long inputNumber) {
-        long baseNum2 = baseNum % inputNumber;
+        long modBaseNum = baseNum % inputNumber;
         long modMon = 1;
-        return monMain(inputNumberMinus1, modMon, baseNum2, inputNumber);
+        return monMain(inputNumberMinus1, modMon, modBaseNum, inputNumber);
     }
 
 
-    public long monMain(long inputNumberMinus1, long modMon, long baseNum2, long inputNumber) {
+    public long monMain(long inputNumberMinus1, long modMon, long modBaseNum, long inputNumber) {
         long numLeft = inputNumberMinus1;
         long modFinal = modMon;
-        for (long i = numLeft, k = baseNum2, j = modFinal; i != 0; i = i / 2, k = (k * k) % inputNumber) {
-
+        for (long i = numLeft, k = modBaseNum, j = modFinal; i != 0; i = i / 2, k = (k * k) % inputNumber) {
             if (evenOrNot(i) != true) {
                 j = (j * k) % inputNumber;
                 modFinal = j;
@@ -135,13 +135,13 @@ public class Mprime {
     }
 
     public long upTest(long inputNumber, long firstGuess, long nextGuessNum) {
-        long maxPrimeNow = firstGuess;
+        long maxPrimeInUpTest = firstGuess;
         for (long i = maxPrimeNow; i < inputNumber; i++) {
             if (xmrTest(i) == true) {
-                maxPrimeNow = i;
+                maxPrimeInUpTest = i;
             }
         }
-        return maxPrimeNow;
+        return maxPrimeInUpTest;
     }
 
     public static void main(String[] args) {
