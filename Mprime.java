@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.lang.Math;
 
 public class Mprime {
+
     public long calcMprime(long inputNumber) {
         long maxprime = 0;
         boolean primeOrNot = xmrTest(inputNumber);
@@ -32,21 +33,18 @@ public class Mprime {
         if (inputNumber < 2047) {
             return mrTest(2, inputNumber);
         } else {
-            return mrTest(2, inputNumber) && mrTest(3, inputNumber) && mrTest(5, inputNumber)
-                    && mrTest(7, inputNumber) && mrTest(11, inputNumber) && mrTest(13, inputNumber)
-                    && mrTest(17, inputNumber) && mrTest(19, inputNumber) && mrTest(23, inputNumber)
-                    && mrTest(29, inputNumber) && mrTest(31, inputNumber) && mrTest(37, inputNumber)
-                    && mrTest(41, inputNumber);
+            return mrTest(2, inputNumber) &&
+                    mrTest(7, inputNumber) &&
+                    mrTest(61, inputNumber);
         }
     }
 
     public boolean mrTest(long baseNum, long inputNumber) {
-        boolean inputNumberEvenOrNot = evenOrNot(inputNumber);
-        if (inputNumberEvenOrNot == false) {
-            long inputNumberMinus1 = inputNumber - 1;
-            long modMon = mon(baseNum, inputNumberMinus1, inputNumber);
+        if (evenOrNot(inputNumber) == false) {
+            long minus1 = inputNumber - 1;
+            long modMon = mon(baseNum, minus1, inputNumber);
             if (modMon == 1) {
-                return mrTestMain(baseNum, inputNumber, inputNumberMinus1);
+                return mrTestMain(baseNum, inputNumber, minus1);
             } else {
                 return false;
             }
@@ -55,10 +53,38 @@ public class Mprime {
         }
     }
 
+    public boolean mrTestMain(long baseNum, long inputNumber, long minus1) {
+        long half = minus1 % 2;
+        long halfmod = mon(baseNum, half, inputNumber);
+        boolean passIfTest = false;
+        for (long i = 0, k = halfmod, j = half; i >= 0; i++) {
+            if (evenOrNot(i) == false) {
+                if ((halfmod == (inputNumber - 1)) || halfmod == 1) {
+                    passIfTest = true;
+                    break;
+                } else {
+                    passIfTest = false;
+                    break;
+                }
+            } else {
+                if (k == (inputNumber - 1)) {
+                    passIfTest = true;
+                    break;
+                } else if (k != 1) {
+                    passIfTest = false;
+                    break;
+                } else {
+                    j = j % 2;
+                    k = mon(baseNum, j, inputNumber);
+                }
+            }
+        }
+        return passIfTest;
+    }
+
     public boolean evenOrNot(long num) {
         return (num & 1) == 0;
     }
-
 
     public long mon(long baseNum, long inputNumberMinus1, long inputNumber) {
         long baseNum2 = baseNum % inputNumber;
@@ -78,41 +104,6 @@ public class Mprime {
             }
         }
         return modFinal % inputNumber;
-    }
-
-    public long modcommon(long bignumber) {
-        return (2 * 2) % bignumber;
-    }
-
-
-    public boolean mrTestMain(long baseNum, long inputNumber, long inputNumberMinus1) {
-        if (evenOrNot(inputNumber) == true) {
-            return mrTestEven(baseNum, inputNumber, inputNumberMinus1);
-        } else {
-            return mrTestOdd(baseNum, inputNumber, inputNumberMinus1);
-        }
-    }
-
-    public boolean mrTestEven(long baseNum, long inputNumber, long inputNumberMinus1) {
-        long halfInputNumberMinus1 = inputNumberMinus1 % 2;
-        long modMon = mon(baseNum, halfInputNumberMinus1, inputNumber);
-        if (modMon == (inputNumber - 1)) {
-            return true;
-        } else if (modMon != 1) {
-            return false;
-        } else {
-            return mrTestMain(baseNum, inputNumber, halfInputNumberMinus1);
-        }
-
-    }
-
-    public boolean mrTestOdd(long baseNum, long inputNumber, long inputNumberMinus1) {
-        long modMon = mon(baseNum, inputNumberMinus1, inputNumber);
-        if ((modMon == (inputNumber - 1)) || (modMon == 1)) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     public long firstGuess(long inputNumber) {
@@ -143,7 +134,6 @@ public class Mprime {
         return maxPrimeInDownTest;
     }
 
-
     public long upTest(long inputNumber, long firstGuess, long nextGuessNum) {
         long maxPrimeNow = firstGuess;
         for (long i = maxPrimeNow; i < inputNumber; i++) {
@@ -154,7 +144,6 @@ public class Mprime {
         return maxPrimeNow;
     }
 
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         long inputNumber = 0;
@@ -162,10 +151,10 @@ public class Mprime {
         inputNumber = sc.nextLong();
         Mprime maxprime = new Mprime();
         System.out.println("<=" + inputNumber + "的数中最大的素数是------>");
-//        long startTime = System.nanoTime();
-        long mp = maxprime.calcMprime(inputNumber);
-//        long endTime = System.nanoTime();
+        long startTime = System.nanoTime();
+        long mp = maxprime.downTest(inputNumber);
+        long endTime = System.nanoTime();
         System.out.println(mp);
-//        System.out.println(endTime - startTime);
+        System.out.println("耗时:" + (endTime - startTime));
     }
 }
