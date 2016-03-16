@@ -97,7 +97,9 @@ public class Mprime {
     public long monMain(long minus1, long modMon, long modBaseNum, long inputNumber) {
         long numLeft = minus1;
         long modFinal = modMon;
-        for (long i = numLeft, k = modBaseNum, j = modFinal; i != 0; i = i / 2, k = (k * k) % inputNumber) {
+        for (long i = numLeft, k = modBaseNum, j = modFinal;
+             i != 0;
+             i = i / 2, k = (k * k) % inputNumber) {
             if (evenOrNot(i) != true) {
                 j = (j * k) % inputNumber;
                 modFinal = j;
