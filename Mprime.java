@@ -5,20 +5,20 @@ public class Mprime {
 
     public long calcMprime(long inputNumber) {
         long maxprime = 0;
-        boolean primeOrNot = xmrTest(inputNumber);
-        if (primeOrNot != true) {
-            long firstGuess = firstGuess(inputNumber);
-            if (firstGuess != inputNumber) {
-                long upTestAnswer = upTest(inputNumber, firstGuess, firstGuess + 1);
-                if (upTestAnswer == firstGuess) {
-                    if (xmrTest(firstGuess) == true) {
-                        return firstGuess;
+        boolean pass = xmrTest(inputNumber);
+        if (pass != true) {
+            long fg = firstGuess(inputNumber);
+            if (fg != inputNumber) {
+                long answer = upTest(inputNumber, fg, fg + 1);
+                if (answer == fg) {
+                    if (xmrTest(fg) == true) {
+                        return fg;
                     } else {
-                        maxprime = downTest(firstGuess);
+                        maxprime = downTest(fg);
                         return maxprime;
                     }
                 } else {
-                    return upTestAnswer;
+                    return answer;
                 }
             } else {
                 maxprime = downTest(inputNumber);
@@ -87,15 +87,15 @@ public class Mprime {
         return (num & 1) == 0;
     }
 
-    public long mon(long baseNum, long inputNumberMinus1, long inputNumber) {
+    public long mon(long baseNum, long minus1, long inputNumber) {
         long modBaseNum = baseNum % inputNumber;
         long modMon = 1;
-        return monMain(inputNumberMinus1, modMon, modBaseNum, inputNumber);
+        return monMain(minus1, modMon, modBaseNum, inputNumber);
     }
 
 
-    public long monMain(long inputNumberMinus1, long modMon, long modBaseNum, long inputNumber) {
-        long numLeft = inputNumberMinus1;
+    public long monMain(long minus1, long modMon, long modBaseNum, long inputNumber) {
+        long numLeft = minus1;
         long modFinal = modMon;
         for (long i = numLeft, k = modBaseNum, j = modFinal; i != 0; i = i / 2, k = (k * k) % inputNumber) {
             if (evenOrNot(i) != true) {
@@ -107,8 +107,8 @@ public class Mprime {
     }
 
     public long firstGuess(long inputNumber) {
-        double gapGuess = gapGuess(inputNumber);
-        return inputNumber - Math.round(gapGuess);
+        double gap = gapGuess(inputNumber);
+        return inputNumber - Math.round(gap);
     }
 
     public double gapGuess(long inputNumber) {
@@ -124,24 +124,21 @@ public class Mprime {
     }
 
     public long downTest(long firstGuess) {
-        long firstGuessMinus1 = firstGuess - 1;
-        long maxPrimeInDownTest;
-        maxPrimeInDownTest = firstGuess;
-        while (xmrTest(firstGuessMinus1) == false) {
-            firstGuessMinus1--;
+        long maxprime = firstGuess - 1;
+        while (xmrTest(maxprime) == false) {
+            maxprime--;
         }
-        maxPrimeInDownTest = firstGuessMinus1;
-        return maxPrimeInDownTest;
+        return maxprime;
     }
 
     public long upTest(long inputNumber, long firstGuess, long nextGuessNum) {
-        long maxPrimeInUpTest = firstGuess;
-        for (long i = maxPrimeNow; i < inputNumber; i++) {
+        long maxprime = firstGuess;
+        for (long i = maxprime; i < inputNumber; i++) {
             if (xmrTest(i) == true) {
-                maxPrimeInUpTest = i;
+                maxprime = i;
             }
         }
-        return maxPrimeInUpTest;
+        return maxprime;
     }
 
     public static void main(String[] args) {
@@ -152,7 +149,7 @@ public class Mprime {
         Mprime maxprime = new Mprime();
         System.out.println("<=" + inputNumber + "的数中最大的素数是------>");
         long startTime = System.nanoTime();
-        long mp = maxprime.downTest(inputNumber);
+        long mp = maxprime.calcMprime(inputNumber);
         long endTime = System.nanoTime();
         System.out.println(mp);
         System.out.println("耗时:" + (endTime - startTime));
