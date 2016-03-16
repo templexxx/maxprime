@@ -9,7 +9,7 @@ public class Mprime {
         if (pass != true) {
             long fg = firstGuess(inputNumber);
             if (fg != inputNumber) {
-                long answer = upTest(inputNumber, fg, fg + 1);
+                long answer = upTest(inputNumber, fg);
                 if (answer == fg) {
                     if (xmrTest(fg) == true) {
                         return fg;
@@ -131,7 +131,7 @@ public class Mprime {
         return maxprime;
     }
 
-    public long upTest(long inputNumber, long firstGuess, long nextGuessNum) {
+    public long upTest(long inputNumber, long firstGuess) {
         long maxprime = firstGuess;
         for (long i = maxprime; i < inputNumber; i++) {
             if (xmrTest(i) == true) {
