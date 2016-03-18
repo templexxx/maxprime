@@ -3,7 +3,7 @@ import java.lang.Math;
 
 public class Mprime {
 
-    public long calcMprime(long inputNumber) {
+    public static long calcMprime(long inputNumber) {
         long maxprime = 0;
         boolean pass = xmrTest(inputNumber);
         if (pass != true) {
@@ -30,7 +30,7 @@ public class Mprime {
     }
 
     // Prime or Not?
-    public boolean xmrTest(long inputNumber) {
+    public static boolean xmrTest(long inputNumber) {
         if (inputNumber < 2047) {
             return mrTest(2, inputNumber);
         } else {
@@ -40,7 +40,7 @@ public class Mprime {
         }
     }
 
-    public boolean mrTest(long baseNum, long inputNumber) {
+    public static boolean mrTest(long baseNum, long inputNumber) {
         if (evenOrNot(inputNumber) == false) {
             long minus1 = inputNumber - 1;
             long modMon = mon(baseNum, minus1, inputNumber);
@@ -54,7 +54,7 @@ public class Mprime {
         }
     }
 
-    public boolean mrTestMain(long baseNum, long inputNumber, long minus1) {
+    public static boolean mrTestMain(long baseNum, long inputNumber, long minus1) {
         long half = minus1 % 2;
         long halfmod = mon(baseNum, half, inputNumber);
         boolean passOrNot = false;
@@ -83,18 +83,18 @@ public class Mprime {
         return passOrNot;
     }
 
-    public boolean evenOrNot(long num) {
+    public static boolean evenOrNot(long num) {
         return (num & 1) == 0;
     }
 
-    public long mon(long baseNum, long minus1, long inputNumber) {
+    public static long mon(long baseNum, long minus1, long inputNumber) {
         long modBaseNum = baseNum % inputNumber;
         long modMon = 1;
         return monMain(minus1, modMon, modBaseNum, inputNumber);
     }
 
 
-    public long monMain(long minus1, long modMon, long modBaseNum, long inputNumber) {
+    public static long monMain(long minus1, long modMon, long modBaseNum, long inputNumber) {
         long numLeft = minus1;
         long modFinal = modMon;
         for (long i = numLeft, k = modBaseNum, j = modFinal;
@@ -108,12 +108,12 @@ public class Mprime {
         return modFinal % inputNumber;
     }
 
-    public long firstGuess(long inputNumber) {
+    public static long firstGuess(long inputNumber) {
         double gap = gapGuess(inputNumber);
         return inputNumber - Math.round(gap);
     }
 
-    public double gapGuess(long inputNumber) {
+    public static double gapGuess(long inputNumber) {
         double lnInputNumber = Math.log(inputNumber);
         return lnInputNumber / (1 + (1 / lnInputNumber)
                 + (2 / (Math.pow(lnInputNumber, 2)))
@@ -125,7 +125,7 @@ public class Mprime {
                 + (40320 / (Math.pow(lnInputNumber, 8))));
     }
 
-    public long downTest(long firstGuess) {
+    public static long downTest(long firstGuess) {
         long maxprime = firstGuess - 1;
         while (xmrTest(maxprime) == false) {
             maxprime--;
@@ -133,7 +133,7 @@ public class Mprime {
         return maxprime;
     }
 
-    public long upTest(long inputNumber, long firstGuess) {
+    public static long upTest(long inputNumber, long firstGuess) {
         long maxprime = firstGuess;
         for (long i = maxprime; i < inputNumber; i++) {
             if (xmrTest(i) == true) {
@@ -148,10 +148,11 @@ public class Mprime {
         long inputNumber = 0;
         System.out.println("输入一个数------>");
         inputNumber = sc.nextLong();
-        Mprime maxprime = new Mprime();
+//        Mprime maxprime = new Mprime();
         System.out.println("<=" + inputNumber + "的数中最大的素数是------>");
         long startTime = System.nanoTime();
-        long mp = maxprime.calcMprime(inputNumber);
+//        long mp = maxprime.calcMprime(inputNumber);
+        long mp = calcMprime(inputNumber);
         long endTime = System.nanoTime();
         System.out.println(mp);
         System.out.println("耗时:" + (endTime - startTime));
