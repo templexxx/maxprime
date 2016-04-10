@@ -29,6 +29,9 @@ scheme下仅runtime不可使用，其他均一致
 
 由于 % 的问题,最好仅使用30亿及以下的求最大素数运算
 
+4.10 新增golang版本
+
 PS:
 
-Mprime.java为本人第一个java程序
+Mprime.java 为本人第一个java程序
+maxprime.go 为本人第一个go程序
