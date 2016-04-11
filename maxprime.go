@@ -50,13 +50,19 @@ func guess_maxprime(Input int64) (MaxPrime int64) {
 }
 
 func xmr_Test(Input int64) bool {
-	if Input < 2047 {
+	switch {
+	case Input < 2047 :
 		return mrTest(2, Input)
-	} else {
-		return mrTest(2, Input) &&
-			mrTest(7, Input) &&
-			mrTest(61, Input)
+	case Input < 1373653:
+		return (mrTest(2, Input) && mrTest(3, Input))
+	case Input < 9080191 :
+		return (mrTest(31, Input) && mrTest(73, Input))
+	case Input < 25326001 :
+		return (mrTest(2, Input) && mrTest(3, Input) && mrTest(5, Input))
+	default:
+		return (mrTest(2, Input) && mrTest(7, Input) && mrTest(61, Input))
 	}
+
 }
 
 func mrTest(baseNum int64, Input int64) bool {
